@@ -21,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja" className={`${notoSansJP.variable} h-full`}>
-      <body className="min-h-full bg-stone-50 text-stone-900 font-sans pb-16">
+      <body className="min-h-full bg-gold-50 text-crimson-900 font-sans pb-16">
         {children}
         <Navigation />
       </body>

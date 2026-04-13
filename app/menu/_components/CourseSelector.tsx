@@ -27,8 +27,8 @@ export default function CourseSelector({
           onClick={() => handleChange(course.slug)}
           className={`flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-medium border transition-all ${
             currentSlug === course.slug
-              ? 'bg-amber-700 text-white border-amber-700'
-              : 'bg-white text-stone-600 border-stone-200 hover:border-amber-400'
+              ? 'bg-gold-500 text-crimson-950 border-gold-500'
+              : 'bg-transparent text-gold-200 border-crimson-500 hover:border-gold-400 hover:text-gold-300'
           }`}
         >
           {course.name}

@@ -27,11 +27,11 @@ export default async function MenuPage({
   return (
     <div className="min-h-screen">
       {/* Sticky header */}
-      <header className="sticky top-0 z-20 bg-white border-b border-stone-100 shadow-sm">
+      <header className="sticky top-0 z-20 bg-crimson-700 border-b border-gold-700 shadow-lg">
         <div className="px-4 pt-4 pb-2 space-y-3">
           <div className="flex items-center justify-between">
-            <h1 className="text-xl font-bold text-stone-800 tracking-tight">Alte Menu</h1>
-            <span className="text-xs text-stone-400 font-medium">スタッフ用</span>
+            <h1 className="text-xl font-bold text-gold-300 tracking-tight">Alte Menu</h1>
+            <span className="text-xs text-crimson-300 font-medium">スタッフ用</span>
           </div>
           <Suspense>
             <MealTypeToggle current={mealType} />
@@ -49,7 +49,7 @@ export default async function MenuPage({
         {selectedCourse ? (
           <CourseTimeline course={selectedCourse} />
         ) : (
-          <div className="flex flex-col items-center justify-center py-24 text-stone-400">
+          <div className="flex flex-col items-center justify-center py-24 text-crimson-300">
             <p className="text-4xl mb-4">🍽</p>
             <p className="text-sm">コースが見つかりません</p>
           </div>

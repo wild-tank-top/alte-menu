@@ -2,6 +2,32 @@
 
 @theme inline {
   --font-sans: var(--font-noto-sans-jp), ui-sans-serif, system-ui, sans-serif;
+
+  /* えんじ (Crimson) */
+  --color-crimson-50:  #fdf2f2;
+  --color-crimson-100: #f5d5d5;
+  --color-crimson-200: #e8aaaa;
+  --color-crimson-300: #d47070;
+  --color-crimson-400: #b84040;
+  --color-crimson-500: #9a2020;
+  --color-crimson-600: #7a1a1a;
+  --color-crimson-700: #601414;
+  --color-crimson-800: #440e0e;
+  --color-crimson-900: #2c0808;
+  --color-crimson-950: #180404;
+
+  /* Gold */
+  --color-gold-50:  #fdf8ec;
+  --color-gold-100: #f8edcc;
+  --color-gold-200: #efd598;
+  --color-gold-300: #e3bc60;
+  --color-gold-400: #d4a030;
+  --color-gold-500: #b8860b;
+  --color-gold-600: #9a7009;
+  --color-gold-700: #7c5807;
+  --color-gold-800: #5e4205;
+  --color-gold-900: #3d2b03;
+  --color-gold-950: #1f1501;
 }
 
 body {
