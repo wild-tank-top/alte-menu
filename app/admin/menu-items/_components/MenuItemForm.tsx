@@ -99,6 +99,11 @@ export default function MenuItemForm({ initialData }: { initialData?: MenuItem }
     e.preventDefault()
     setError(null)
 
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
+      setError('Supabase が設定されていないため保存できません。.env.local を確認してください。')
+      return
+    }
+
     startTransition(async () => {
       try {
         const { createClient } = await import('@/lib/supabase/client')

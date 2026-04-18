@@ -1,8 +1,8 @@
 import Link from 'next/link'
-import { MOCK_COURSES } from '@/lib/data/mock'
+import { getAllCourses } from '@/lib/data/courses'
 
-export default function CoursesAdminPage() {
-  const courses = MOCK_COURSES
+export default async function CoursesAdminPage() {
+  const courses = await getAllCourses()
 
   return (
     <div className="min-h-screen">

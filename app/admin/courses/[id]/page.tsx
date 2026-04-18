@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { getCourseBySlug } from '@/lib/data/courses'
+import { getCourseById } from '@/lib/data/courses'
 import { getAllMenuItems } from '@/lib/data/menu-items'
-import { MOCK_COURSES } from '@/lib/data/mock'
 import CourseAssignEditor from './_components/CourseAssignEditor'
 
 export default async function CourseAdminPage({
@@ -12,12 +11,8 @@ export default async function CourseAdminPage({
 }) {
   const { id } = await params
 
-  // Find course slug by id
-  const courseMeta = MOCK_COURSES.find((c) => c.id === id)
-  if (!courseMeta) notFound()
-
   const [course, allMenuItems] = await Promise.all([
-    getCourseBySlug(courseMeta.slug),
+    getCourseById(id),
     getAllMenuItems(),
   ])
 
