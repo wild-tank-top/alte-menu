@@ -27,11 +27,15 @@ export default async function MenuPage({
   return (
     <div className="min-h-screen">
       {/* Sticky header */}
-      <header className="sticky top-0 z-20 bg-crimson-700 border-b border-gold-700 shadow-lg">
-        <div className="px-4 pt-4 pb-2 space-y-3">
+      <header className="relative sticky top-0 z-20 header-luxury shadow-xl gold-rule-bottom">
+        <div className="px-4 pt-4 pb-3 space-y-3">
           <div className="flex items-center justify-between">
-            <h1 className="text-xl font-bold text-gold-300 tracking-tight">Alte Menu</h1>
-            <span className="text-xs text-crimson-300 font-medium">スタッフ用</span>
+            <h1 className="font-display text-[26px] font-semibold gold-shimmer tracking-wider leading-none">
+              Alte Menu
+            </h1>
+            <span className="font-caps text-[9px] tracking-[0.25em] text-crimson-400 uppercase">
+              Staff Guide
+            </span>
           </div>
           <Suspense>
             <MealTypeToggle current={mealType} />

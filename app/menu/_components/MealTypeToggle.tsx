@@ -15,14 +15,14 @@ export default function MealTypeToggle({ current }: { current: MealType }) {
   }
 
   return (
-    <div className="flex bg-crimson-800 rounded-xl p-1 gap-1">
+    <div className="flex bg-crimson-900/80 rounded-full p-0.5 border border-crimson-700/50">
       {(['lunch', 'dinner'] as const).map((type) => (
         <button
           key={type}
           onClick={() => handleChange(type)}
-          className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
+          className={`flex-1 py-1.5 px-4 rounded-full text-sm font-medium transition-all duration-300 ${
             current === type
-              ? 'bg-gold-500 text-crimson-950 shadow-sm'
+              ? 'bg-gold-500 text-crimson-950 font-semibold shadow-sm'
               : 'text-crimson-200 hover:text-gold-200'
           }`}
         >

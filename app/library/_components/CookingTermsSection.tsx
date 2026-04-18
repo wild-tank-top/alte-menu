@@ -1,10 +1,10 @@
 import type { CookingTerm, TermCategory } from '@/lib/supabase/types'
 
-const CATEGORY_LABELS: Record<TermCategory, { label: string; color: string }> = {
-  cooking_method: { label: '調理法', color: 'bg-amber-100 text-amber-800' },
-  sauce:          { label: 'ソース', color: 'bg-sky-100 text-sky-800' },
-  technique:      { label: 'テクニック', color: 'bg-emerald-100 text-emerald-800' },
-  other:          { label: 'その他', color: 'bg-stone-100 text-stone-700' },
+const CATEGORY_CONFIG: Record<TermCategory, { label: string; bg: string; text: string }> = {
+  cooking_method: { label: '調理法',     bg: 'bg-crimson-700', text: 'text-gold-300' },
+  sauce:          { label: 'ソース',     bg: 'bg-crimson-800', text: 'text-gold-300' },
+  technique:      { label: 'テクニック', bg: 'bg-crimson-600', text: 'text-gold-200' },
+  other:          { label: 'その他',     bg: 'bg-crimson-900', text: 'text-gold-300' },
 }
 
 export default function CookingTermsSection({ terms }: { terms: CookingTerm[] }) {
@@ -16,31 +16,46 @@ export default function CookingTermsSection({ terms }: { terms: CookingTerm[] })
   const categoryOrder: TermCategory[] = ['cooking_method', 'sauce', 'technique', 'other']
 
   return (
-    <section className="space-y-6">
-      <h2 className="text-lg font-bold text-stone-800">調理法辞書</h2>
-
+    <section className="space-y-7">
       {categoryOrder.map((cat) => {
         const items = byCategory[cat]
         if (!items?.length) return null
-        const { label, color } = CATEGORY_LABELS[cat]
+        const { label, bg, text } = CATEGORY_CONFIG[cat]
 
         return (
-          <div key={cat} className="space-y-2">
-            <h3 className={`inline-block text-xs font-bold px-3 py-1 rounded-full ${color}`}>
-              {label}
-            </h3>
+          <div key={cat} className="space-y-2.5">
+            {/* Category badge */}
+            <div className="flex items-center gap-3">
+              <span className={`font-caps text-[9px] tracking-[0.28em] uppercase px-3 py-1 rounded-full ${bg} ${text}`}>
+                {label}
+              </span>
+              <div className="flex-1 h-px bg-gradient-to-r from-gold-200/60 to-transparent" />
+            </div>
+
             <div className="space-y-2">
-              {items.map((term) => (
-                <div key={term.id} className="bg-white rounded-xl border border-stone-100 p-4">
+              {items.map((term, idx) => (
+                <div
+                  key={term.id}
+                  className="bg-white rounded-2xl p-4 card-enter"
+                  style={{
+                    border: '1px solid rgba(212,160,48,0.2)',
+                    animationDelay: `${idx * 40}ms`,
+                  }}
+                >
                   <div className="flex items-baseline gap-2 mb-2">
-                    <span className="text-base font-bold text-stone-800">{term.term}</span>
+                    <span className="font-display text-[19px] font-semibold text-crimson-800 leading-tight">
+                      {term.term}
+                    </span>
                     {term.reading && (
-                      <span className="text-xs text-stone-400">{term.reading}</span>
+                      <span className="text-xs text-crimson-400 tracking-wider">{term.reading}</span>
                     )}
                   </div>
-                  <p className="text-sm text-stone-600 leading-relaxed">{term.description}</p>
+                  <div className="gold-rule mb-2.5" />
+                  <p className="text-sm text-crimson-700 leading-relaxed">{term.description}</p>
                   {term.example && (
-                    <p className="text-xs text-stone-400 mt-2 italic">例: {term.example}</p>
+                    <p className="font-display text-xs text-crimson-400 mt-2 italic">
+                      例: {term.example}
+                    </p>
                   )}
                 </div>
               ))}

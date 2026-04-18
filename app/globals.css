@@ -1,9 +1,11 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: var(--font-noto-sans-jp), ui-sans-serif, system-ui, sans-serif;
+  --font-sans:    var(--font-noto-sans-jp), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-cormorant), Georgia, 'Times New Roman', serif;
+  --font-caps:    var(--font-cinzel), Georgia, serif;
 
-  /* えんじ (Crimson) */
+  /* Crimson / えんじ */
   --color-crimson-50:  #fdf2f2;
   --color-crimson-100: #f5d5d5;
   --color-crimson-200: #e8aaaa;
@@ -30,10 +32,92 @@
   --color-gold-950: #1f1501;
 }
 
+/* ── Keyframes ─────────────────────────────── */
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+@keyframes pulseGold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212,160,48,0.5); }
+  60%       { box-shadow: 0 0 0 5px rgba(212,160,48,0); }
+}
+
+/* ── Base ──────────────────────────────────── */
+
 body {
   font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .safe-pb {
   padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ── Utilities ─────────────────────────────── */
+
+/* Luxury gradient header */
+.header-luxury {
+  background: linear-gradient(150deg, #2c0808 0%, #601414 30%, #7a1a1a 55%, #8b2020 75%, #5c1414 100%);
+}
+
+/* Gold shimmer text */
+.gold-shimmer {
+  background: linear-gradient(
+    90deg,
+    #9a7009 0%,
+    #d4a030 20%,
+    #f0d880 40%,
+    #d4a030 55%,
+    #e8c060 70%,
+    #b8860b 85%,
+    #9a7009 100%
+  );
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 6s linear infinite;
+}
+
+/* Card entrance */
+.card-enter {
+  animation: fadeInUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Timeline dot pulse */
+.dot-pulse {
+  animation: pulseGold 2.8s ease-in-out infinite;
+}
+
+/* Horizontal scrollbar hide */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Gold rule line */
+.gold-rule {
+  background: linear-gradient(90deg, transparent, #d4a030 20%, #d4a030 80%, transparent);
+  height: 1px;
+}
+
+/* Gold rule bottom — for sticky headers */
+.gold-rule-bottom::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,160,48,0.8) 20%, rgba(212,160,48,0.8) 80%, transparent);
 }

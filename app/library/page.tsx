@@ -6,10 +6,14 @@ export default async function LibraryPage() {
 
   return (
     <div className="min-h-screen">
-      <header className="sticky top-0 z-20 bg-white border-b border-stone-100 shadow-sm">
+      <header className="relative sticky top-0 z-20 header-luxury shadow-xl gold-rule-bottom">
         <div className="px-4 py-4">
-          <h1 className="text-xl font-bold text-stone-800">ナレッジライブラリ</h1>
-          <p className="text-xs text-stone-400 mt-0.5">調理用語・ワイン品種の早見帳</p>
+          <h1 className="font-display text-[26px] font-semibold gold-shimmer tracking-wider leading-none">
+            Knowledge Library
+          </h1>
+          <p className="text-[11px] text-crimson-400 mt-1 tracking-widest font-caps uppercase">
+            調理用語 &amp; ワインガイド
+          </p>
         </div>
       </header>
 

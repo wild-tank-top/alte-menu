@@ -20,15 +20,15 @@ export default function CourseSelector({
   }
 
   return (
-    <div className="flex gap-2 overflow-x-auto pb-1">
+    <div className="flex gap-1.5 overflow-x-auto pb-0.5 no-scrollbar">
       {courses.map((course) => (
         <button
           key={course.slug}
           onClick={() => handleChange(course.slug)}
-          className={`flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-medium border transition-all ${
+          className={`flex-shrink-0 px-3.5 py-1 rounded-full text-xs font-medium border transition-all duration-200 ${
             currentSlug === course.slug
-              ? 'bg-gold-500 text-crimson-950 border-gold-500'
-              : 'bg-transparent text-gold-200 border-crimson-500 hover:border-gold-400 hover:text-gold-300'
+              ? 'bg-gold-500 text-crimson-950 border-gold-400 font-semibold shadow-sm'
+              : 'bg-transparent text-gold-300/80 border-crimson-600/50 hover:border-gold-500/70 hover:text-gold-200'
           }`}
         >
           {course.name}
