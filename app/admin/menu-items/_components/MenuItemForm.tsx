@@ -3,6 +3,7 @@
 import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import type { MenuItem } from '@/lib/supabase/types'
+import { saveMenuItem } from '../actions'
 
 type FormData = Omit<MenuItem, 'id' | 'created_at' | 'updated_at'>
 
@@ -99,45 +100,26 @@ export default function MenuItemForm({ initialData }: { initialData?: MenuItem }
     e.preventDefault()
     setError(null)
 
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
-      setError('Supabase が設定されていないため保存できません。.env.local を確認してください。')
-      return
-    }
-
     startTransition(async () => {
-      try {
-        const { createClient } = await import('@/lib/supabase/client')
-        const supabase = createClient()
+      const result = await saveMenuItem(initialData?.id ?? null, {
+        name: form.name,
+        name_en: form.name_en || null,
+        photo_url: form.photo_url || null,
+        main_ingredients: form.main_ingredients || null,
+        sauce_description: form.sauce_description || null,
+        concept: form.concept || null,
+        required_explanation: form.required_explanation,
+        supplemental_explanation: form.supplemental_explanation || null,
+        english_phrase: form.english_phrase || null,
+      })
 
-        const payload = {
-          name: form.name,
-          name_en: form.name_en || null,
-          photo_url: form.photo_url || null,
-          main_ingredients: form.main_ingredients || null,
-          sauce_description: form.sauce_description || null,
-          concept: form.concept || null,
-          required_explanation: form.required_explanation,
-          supplemental_explanation: form.supplemental_explanation || null,
-          english_phrase: form.english_phrase || null,
-          updated_at: new Date().toISOString(),
-        }
-
-        if (initialData) {
-          const { error } = await supabase
-            .from('menu_items')
-            .update(payload)
-            .eq('id', initialData.id)
-          if (error) throw error
-        } else {
-          const { error } = await supabase.from('menu_items').insert(payload)
-          if (error) throw error
-        }
-
-        router.push('/admin/menu-items')
-        router.refresh()
-      } catch (err) {
-        setError(err instanceof Error ? err.message : '保存中にエラーが発生しました')
+      if (result?.error) {
+        setError(result.error)
+        return
       }
+
+      router.push('/admin/menu-items')
+      router.refresh()
     })
   }
 

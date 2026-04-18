@@ -4,6 +4,7 @@ import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import type { CourseWithItems, MenuItem, CourseSection } from '@/lib/supabase/types'
 import { SECTION_LABELS } from '@/lib/utils'
+import { saveCourseAssignments } from '../actions'
 
 const SECTIONS: CourseSection[] = [
   'amuse', 'entree_1', 'entree_2', 'entree_3',
@@ -85,39 +86,20 @@ export default function CourseAssignEditor({
     })
   }
 
-  async function handleSave() {
+  function handleSave() {
     setError(null)
-
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
-      setError('Supabase が設定されていないため保存できません。.env.local を確認してください。')
-      return
-    }
-
     startTransition(async () => {
-      try {
-        const { createClient } = await import('@/lib/supabase/client')
-        const supabase = createClient()
+      const result = await saveCourseAssignments(
+        course.id,
+        assigned.map((a) => ({ menu_item_id: a.menu_item_id, section: a.section }))
+      )
 
-        // Delete all existing assignments
-        await supabase.from('course_menu_items').delete().eq('course_id', course.id)
-
-        // Re-insert
-        const rows = assigned.map((a, i) => ({
-          course_id: course.id,
-          menu_item_id: a.menu_item_id,
-          section: a.section,
-          sort_order: i + 1,
-        }))
-
-        if (rows.length > 0) {
-          const { error } = await supabase.from('course_menu_items').insert(rows)
-          if (error) throw error
-        }
-
-        router.refresh()
-      } catch (err) {
-        setError(err instanceof Error ? err.message : '保存中にエラーが発生しました')
+      if (result?.error) {
+        setError(result.error)
+        return
       }
+
+      router.refresh()
     })
   }
 
